@@ -1,0 +1,58 @@
+﻿using System; 
+  
+ namespace csharpLab12 
+ { 
+      
+     class Event 
+     { 
+         public string name; 
+         public delegate void EventHandle(string str); 
+         public Event(string name) 
+         { 
+             this.name = name; 
+         } 
+         public event EventHandle Ev; 
+  
+         public void generEv() 
+         { 
+             if (Ev != null) 
+             { 
+                 Ev(name); 
+             } 
+             else 
+             { 
+                 Console.WriteLine("Ошибка"); 
+             } 
+         } 
+     } 
+  
+     class Klass 
+     { 
+         public string str; 
+         public Klass(string str) 
+         { 
+             this.str = str; 
+         } 
+         public void Display(string name) 
+         { 
+             Console.WriteLine($"{name} сгенерирован"); 
+             Console.WriteLine($"Сообщение {str}"); 
+         } 
+     } 
+  
+     class Program 
+     { 
+         static void Main(string[] args) 
+         { 
+             Event ob = new Event("Объект"); 
+             Event ob2 = new Event("Объект2"); 
+             Klass disp = new Klass("Текст"); 
+  
+             ob.Ev += disp.Display; 
+             ob2.Ev += disp.Display; 
+  
+             ob.generEv(); 
+             ob2.generEv(); 
+         } 
+     } 
+ }
